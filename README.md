@@ -6,9 +6,14 @@ These scripts are not production grade and just helped me with some things I wan
 
 This script takes a target picture and reads all colors within it to create a top-X list of identical colors used (left is most used, decreasing to the right).
 
+I wanted to try the multiprocessing library for this and it worked "ok" in my opinion. Keep in mind that large pictures (more than 2000x2000px) can take a very long time (even with 16+ CPUs used).
+
+Since this is a pixel-by-pixel operation it will always take a "long" time (but it is precise).
+
 The more CPUs you use, the faster it is:
 - 2 CPUs --> 345 seconds (for the test picture)
 - 10 CPUs --> 26 seconds (for the test picture)
+- 14 CPUs --> 18 seconds (for the test picture)
 
 Args:
 - -top [int] --> -top 10 (shows top10 colors in the picture)
