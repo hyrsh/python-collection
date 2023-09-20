@@ -19,7 +19,7 @@ def cbErr(e):
   print(e)
 
 #array containing all unique colors
-colorStorageArray=[[1,0,0,0,0]] #default useless value for format
+colorStorageArray=[[0,0,0,0,0]] #default useless value for format
 
 #cleaned up array containing all unique colors
 cleanedStorage=[[0,0,0,0,0]] #default useless value for format
@@ -37,7 +37,7 @@ if not os.path.exists(dst_path):
 
 #cleanup given array (merge)
 def cleanStorage(storage,topc):
-  total=topc*cpuc #avoid loss if multiple parts have many different hits
+  total=len(storage) #topc*cpuc #avoid loss if multiple parts have many different hits
   hit=False #hit scan start value
   for i in range(0,total):
     hit=False #reset hit scan
@@ -49,6 +49,7 @@ def cleanStorage(storage,topc):
       g=storage[i][2] #color to compare
       b=storage[i][3] #color to compare
       c=storage[i][4] #count of color to compare
+      p1=cleanedStorage[j][0] #new saved part to compare
       r1=cleanedStorage[j][1] #new saved color to compare
       g1=cleanedStorage[j][2] #new saved color to compare
       b1=cleanedStorage[j][3] #new saved color to compare
@@ -83,6 +84,7 @@ def colorAvg(end,p,r,g,b):
 def colorCount(start, end, height, part, img):
   s=start
   offsetX=start+end
+  #print("Part {} started from {} to {}".format(part, s, offsetX)) #debug for part areas
   for xr in range(s,offsetX):
     for i in range(0,height):
       currentColor=img.getpixel((s,i)) #0=red, 1=green, 2=blue, 3=alpha
@@ -98,8 +100,9 @@ def colorCount(start, end, height, part, img):
           hit=True
       
       if hit==False:
-        colorStorageArray.append([part,r,g,b,0])
+        colorStorageArray.append([part,r,g,b,1]) #new color with hit count 1
     s+=1
+  time.sleep(0.1) #avoid racing condition for multiple array appends in callback
   return colorStorageArray
 
 #split workload to process image faster
@@ -130,6 +133,7 @@ def processImage(img):
   
   prt.close() #close queue
   prt.join() #join queue threads
+  #time.sleep(3)
 
 #name tag generator for saving color palette file
 def nameGen():
@@ -172,6 +176,12 @@ def drawResult(colors, count):
     base.save(dst_path+"/"+name+".png") #save canvas again
     curX+=paletteWidth+innerBorder #move offset to "right"
 
+def colorCountCorrection():
+  c=0
+  for i in cleanedStorage:
+    if i[4]!=0:
+      c+=1
+  return c
 
 if __name__ == '__main__':
   startTime=time.time() #get current time
@@ -188,12 +198,13 @@ if __name__ == '__main__':
   img=Image.open(target).convert("RGBA") #open target file to analyze
   print("Using {} CPUs".format(cpuc)) #debug
   print("-----------------------") #debug
+  print("Processing ...")
   #halo package
-  prfx="Processing"
-  spinner = Halo(text=prfx+" colors... ", color='red') #spinner settings
-  spinner.start() #spinner entry
+  #prfx="Processing"
+  #spinner = Halo(text=prfx+" colors... ", color='red') #spinner settings
+  #spinner.start() #spinner entry
   processImage(img) #main processing entrypoint
-  spinner.stop() #spinner terminate
+  #spinner.stop() #spinner terminate
   print("[+] Finished!") #debug
   
   #close target file handle
@@ -201,16 +212,18 @@ if __name__ == '__main__':
 
   #nice python way ! inverse sort array on value in fifth column
   s1=sorted(colorStorageArray, key=lambda tophits: tophits[4], reverse=True)
-
+  
   cleanStorage(s1,topc) #cleaned sorted storage
 
   #nice python way ! inverse sort array on value in fifth column
   s=sorted(cleanedStorage, key=lambda tophits: tophits[4], reverse=True)
-
+  
   print("-----------------------")
-  print("Colors total: {}".format(len(colorStorageArray)))
+  print("Colors total: {}".format(colorCountCorrection()))
   print("Top{} identical colors:".format(topc))
   print("-----------------------")
+  if topc > colorCountCorrection(): #failsafe to avoid array out of bounds
+    topc=colorCountCorrection()
   for i in range(0,topc):
     print("#{}\t({},{},{}),\tHits: {}".format(i+1,s[i][1],s[i][2],s[i][3],s[i][4]))
   drawResult(s,topc) #call drawing
