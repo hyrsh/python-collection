@@ -2,6 +2,24 @@
 
 These scripts are not production grade and just helped me with some things I wanted to automate.
 
+### [+] image pattern filter
+
+This script applies a given filter to a single image or batch of images
+
+Args:
+- -target [string] --> path to image (if "all" is set all images in ./src_dir will be processed)
+- -pattern [string] --> sets the pattern for the filter (square, line, block, hybrid)
+- -scale [int] --> sets the scale of the patterns (max. is 10)
+
+Example:
+- ./pattern.py -pattern hybrid -target forest.jpg -scale 1
+
+![image info](./pattern/example.jpg)
+
+
+---
+
+
 ### [+] colorpalette
 
 This script takes a target picture and reads all colors within it to create a top-X list of identical colors used (left is most used, decreasing to the right).
