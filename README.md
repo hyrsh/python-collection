@@ -10,9 +10,10 @@ Args:
 - -target [string] --> path to image (if "all" is set all images in ./src_dir will be processed)
 - -pattern [string] --> sets the pattern for the filter (square, line, block, hybrid)
 - -scale [int] --> sets the scale of the patterns (max. is 10)
+- -mode [string] --> sets the filter ("light" or "dark")
 
 Example:
-- ./pattern.py -pattern hybrid -target forest.jpg -scale 1
+- ./pattern.py -pattern hybrid -target forest.jpg -scale 1 -mode light
 
 ![image info](./pattern/example.jpg)
 
