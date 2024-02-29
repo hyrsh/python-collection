@@ -43,19 +43,35 @@ def filter(color):
   green=color[1] #color array position for green
   blue=color[2] #color array position for blue
   
-  #keep within 16bit color range
-  if red > (255-xtnd):
-    red=255
-  else:
-    red=red+random.randrange(0,xtnd) #randomize within brighten range to add "used look"
-  if green > (255-xtnd):
-    green=255
-  else:
-    green=green+random.randrange(0,xtnd) #randomize within brighten range to add "used look"
-  if blue > (255-xtnd):
-    blue=255
-  else:
-    blue=blue+random.randrange(0,xtnd) #randomize within brighten range to add "used look"
+  if md == "light":
+    #keep within 16bit color range
+    if red > (255-xtnd):
+      red=255
+    else:
+      red=red+random.randrange(0,xtnd) #randomize within brighten range to add "used look"
+    if green > (255-xtnd):
+      green=255
+    else:
+      green=green+random.randrange(0,xtnd) #randomize within brighten range to add "used look"
+    if blue > (255-xtnd):
+      blue=255
+    else:
+      blue=blue+random.randrange(0,xtnd) #randomize within brighten range to add "used look"
+
+  if md == "dark":
+    #keep within 16bit color range
+    if (red-xtnd) < 0:
+      red=0
+    else:
+      red=red-random.randrange(0,xtnd) #randomize within darken range to add "used look"
+    if (green-xtnd) < 0:
+      green=0
+    else:
+      green=green-random.randrange(0,xtnd) #randomize within darken range to add "used look"
+    if (blue-xtnd) < 0:
+      blue=0
+    else:
+      blue=blue-random.randrange(0,xtnd) #randomize within darken range to add "used look"
 
   return (red,green,blue) #return new color
 
@@ -144,11 +160,13 @@ if __name__ == '__main__':
   parser.add_argument('-pattern',default="square") #flag -pattern
   parser.add_argument('-scale',default=1) #flag -scale
   parser.add_argument('-target',default="./test.png") #flag -target
+  parser.add_argument('-mode',default="light") #flag -mode
   args=parser.parse_args() #parse cli flags
   #set data from flags
   pat=str(args.pattern)
   tar=str(args.target)
   sca=int(args.scale)
+  md=str(args.mode)
   
   if sca > 10:
     print("[+] Set scale to 10 (was {})".format(sca))
