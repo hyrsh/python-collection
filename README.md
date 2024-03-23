@@ -18,7 +18,7 @@ Example:
 ![dc1](./archdraw/output/arch_DC1.png)
 
 
-![week](./archdraw/output/arch_myweek.png)
+![week](./archdraw/output/arch_MyWeek.png)
 
 
 ---
