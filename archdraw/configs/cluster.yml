@@ -1,0 +1,48 @@
+name: MyWeek
+cluster:
+  - name: "Monday"
+    layers:
+      - layer-name: "House"
+        components:
+          - item:
+              name: "Clean"
+          - item:
+              name: "Dinner"
+      - layer-name: "Garden"
+        components:
+          - item:
+              name: "Build hut"
+          - item:
+              name: "Mow lawn"
+          - item:
+              name: "Plant tree"
+#---------------------
+  - name: "Tuesday"
+    layers:
+      - layer-name: "House"
+        components:
+          - item:
+              name: "Watch TV"
+      - layer-name: "Living room"
+        components:
+          - item:
+              name: "Sit"
+          - item:
+              name: "Get bored"           
+      - layer-name: "Kitchen"
+        components:
+          - item:
+              name: "Dishes"
+#---------------------
+  - name: "Wednesday"
+    layers:
+      - layer-name: "Pool"
+        components:
+          - item:
+              name: "Swim"
+      - layer-name: "Garage"
+        components:
+          - item:
+              name: "Clean car"
+          - item:
+              name: "Shut door"

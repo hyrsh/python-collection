@@ -157,16 +157,18 @@ if __name__ == '__main__':
   print("[+] -------------------------")
   startTime=time.time() #get current time
   parser=argparse.ArgumentParser() #init cli args
-  parser.add_argument('-pattern',default="square") #flag -pattern
-  parser.add_argument('-scale',default=1) #flag -scale
-  parser.add_argument('-target',default="./test.png") #flag -target
-  parser.add_argument('-mode',default="light") #flag -mode
+  parser.add_argument('-pattern',default="square",help="[string] Choose pattern (line, hybrid, square)") #flag -pattern
+  parser.add_argument('-scale',default=1,help="[int] Scale for pattern size (max. 10)") #flag -scale
+  parser.add_argument('-target',default="./test.png",help="[string] Target to filter (if given 'all' trigger batch in src_dir)") #flag -target
+  parser.add_argument('-mode',default="light",help="[string] Color mode (light or dark)") #flag -mode
+  #parser.add_argument('-h',default=False) #flag -mode
   args=parser.parse_args() #parse cli flags
   #set data from flags
   pat=str(args.pattern)
   tar=str(args.target)
   sca=int(args.scale)
   md=str(args.mode)
+  #h=bool(args.h)
   
   if sca > 10:
     print("[+] Set scale to 10 (was {})".format(sca))

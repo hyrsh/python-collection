@@ -1,0 +1,63 @@
+name: DC1
+cluster:
+  - name: "AZ-1"
+    layers:
+      - layer-name: "Applications"
+        components:
+          - item:
+              name: "App1"
+          - item:
+              name: "App2"
+      - layer-name: "Virtual machines"
+        components:
+          - item:
+              name: "VM1"
+          - item:
+              name: "VM2"
+          - item:
+              name: "VM3"
+      - layer-name: "Network"
+        components:
+          - item:
+              name: "Switch1"
+          - item:
+              name: "Switch2"
+      - layer-name: "Storage"
+        components:
+          - item:
+              name: "Appliance1"
+          - item:
+              name: "Appliance2"
+          - item:
+              name: "Appliance3"
+#---------------------
+  - name: "AZ-2"
+    layers:
+      - layer-name: "Applications"
+        components:
+          - item:
+              name: "App1"
+          - item:
+              name: "App2"
+      - layer-name: "Virtual machines"
+        components:
+          - item:
+              name: "VM1"
+          - item:
+              name: "VM2"
+          - item:
+              name: "VM3"
+      - layer-name: "Network"
+        components:
+          - item:
+              name: "Switch1"
+          - item:
+              name: "Switch2"
+      - layer-name: "Storage"
+        components:
+          - item:
+              name: "Appliance1"
+          - item:
+              name: "Appliance2"
+          - item:
+              name: "Appliance3"

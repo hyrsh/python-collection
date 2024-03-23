@@ -2,6 +2,26 @@
 
 These scripts are not production grade and just helped me with some things I wanted to automate.
 
+### [+] archdraw
+
+This script draws a custom cluster view of configured values from your config file. Colors can be changed in the themes file.
+
+Both files can be referenced with flags shown below.
+
+Args:
+- -config [string] --> path to config YAML file
+- -theme [string] --> path to theme YAML file
+
+Example:
+- ./archdraw.py -config configs/cluster.yml -theme themes/default.yml
+
+![image info](./archdraw/output/arch_DC1.png)
+![image info](./archdraw/output/arch_myweek.png)
+
+
+---
+
+
 ### [+] image pattern filter
 
 This script applies a given filter to a single image or batch of images
