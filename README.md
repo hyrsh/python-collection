@@ -16,6 +16,8 @@ Example:
 - ./archdraw.py -config configs/cluster.yml -theme themes/default.yml
 
 ![dc1](./archdraw/output/arch_DC1.png)
+
+
 ![week](./archdraw/output/arch_myweek.png)
 
 
