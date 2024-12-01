@@ -28,7 +28,9 @@ def fSymbol(selector):
     return f_res+"/f_10.png"
 
 def pColor(selector):
-  if selector <= 4999:
+  if selector <= 0:
+    return (123,123,123)
+  if selector > 0:
     return (0,213,255)
   if selector > 4999 and selector <= 9999:
     return (0,128,255)
@@ -62,7 +64,10 @@ if __name__ == '__main__':
   font = ImageFont.truetype("./main_res/lc.ttf", 48)
   draw = ImageDraw.Draw(img)
   draw.rounded_rectangle(((112,107),(332,184)), fill=(20,20,20), radius=20, outline=fontColor, width=4, corners=(1,0,1,0))
-  draw.text((135, 125),str(format(pr, ",d")),fontColor, font=font, stroke_width=2, stroke_fill=(100,100,100))
+  if pr == 0:
+    draw.text((135, 125),"--.---",fontColor, font=font, stroke_width=2, stroke_fill=(100,100,100))
+  else:
+    draw.text((135, 125),str(format(pr, ",d")),fontColor, font=font, stroke_width=2, stroke_fill=(100,100,100))
   #draw.rectangle(((111,106),(333,185)), outline=(255, 255, 255))
   fr.close()
   img.save(dst)
